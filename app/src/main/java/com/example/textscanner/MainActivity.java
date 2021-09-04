@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         private TextView textView;
         private static final int REQUEST_CAMERA_CODE =100;
         Bitmap bitmap;
-        private LinearLayout linearLayout;
-
 
 
     @Override
