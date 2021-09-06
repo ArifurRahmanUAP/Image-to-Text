@@ -8,15 +8,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Database  extends SQLiteOpenHelper{
 
-    public static final int dbversion =10;
+    public static final int dbversion =17;
     public static final  String dbname = "Data.db";
-    public static final String ID = "_id";
+    public static final String ID = "id";
     public static final String TABLE_NAME = "info";
     public static final String NAME = "Name";
-    public static final String Create_Table = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ("+ID+" INTEGER PRIMARY KEY autoincrement,name)";
+    public static final String Create_Table = ("create table " + TABLE_NAME + " ( " + ID + " INTEGER PRIMARY KEY ,Name TEXT)");
+
     public  static final  String SELECT_ALL = "SELECT * FROM " + TABLE_NAME;
     private Context context;
 
@@ -26,7 +30,7 @@ public class Database  extends SQLiteOpenHelper{
 
      }
 
-        @Override
+    @Override
         public void onCreate(SQLiteDatabase db) {
          try {
              db.execSQL(Create_Table);
@@ -65,14 +69,6 @@ public class Database  extends SQLiteOpenHelper{
     }
 
 
-    //delete data
-    public void delete(int id) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        sqLiteDatabase.execSQL("DELETE FROM "+TABLE_NAME+" WHERE _id="+id);
-    }
-
-
 
     public Cursor displayAllData()
     {
@@ -83,5 +79,16 @@ public class Database  extends SQLiteOpenHelper{
 
 
     }
+
+    public void delete(int id) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        sqLiteDatabase.execSQL("DELETE FROM "+TABLE_NAME+" WHERE ID=?");
+    }
+    public void delete_byID(int id){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(TABLE_NAME, "ID = ? ", null);
+    }
+
 
 }
