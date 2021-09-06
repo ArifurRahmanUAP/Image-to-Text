@@ -11,18 +11,16 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.SparseArray;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
@@ -33,22 +31,28 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-        private ImageView take,copy,retake;
+
+
+    private ImageView take,copy,retake,history;
         private TextView textView;
         private static final int REQUEST_CAMERA_CODE =100;
         Bitmap bitmap;
-
+        Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Toast.makeText(MainActivity.this,"Developed by Arifur Rahman",Toast.LENGTH_LONG).show();
         take = findViewById(R.id.take_photo);
         textView = findViewById(R.id.textview);
         copy = findViewById(R.id.copyid);
         retake = findViewById(R.id.retake);
+        history = findViewById(R.id.historyid);
+        db = new Database(this);
+        SQLiteDatabase sqLiteDatabase = db.getWritableDatabase();
 
     if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED);
         {
@@ -75,8 +79,30 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String scanned_text = textView.getText().toString();
                 copytoClip(scanned_text);
+                if (scanned_text == null) {
+                    Toast.makeText(MainActivity.this, "Null", Toast.LENGTH_SHORT).show();
+                } else if (scanned_text != null) {
+                    long rowid = db.insertData(scanned_text);
+                    if (rowid >0)
+                    {
+                        Toast.makeText(MainActivity.this, "Contact added", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else {
+                        Toast.makeText(MainActivity.this, "Contact added", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
+
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ShowData.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -98,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
     private  void getTextFromImage(Bitmap bitmap){
         TextRecognizer recognizer = new TextRecognizer.Builder(this).build();
         if(!recognizer.isOperational())
@@ -125,7 +152,10 @@ public class MainActivity extends AppCompatActivity {
     {
         ClipboardManager clipBoard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("Copied Data",text);
+
         clipBoard.setPrimaryClip(clip);
+
+
         Toast.makeText(MainActivity.this,"Copied",Toast.LENGTH_LONG).show();
     }
 
