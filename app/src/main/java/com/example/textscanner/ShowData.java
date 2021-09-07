@@ -1,11 +1,15 @@
 package com.example.textscanner;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -41,9 +45,8 @@ public class ShowData extends AppCompatActivity {
             empty = findViewById(R.id.empty);
             dis();
 
-
-
     }
+
 
     private void dis() {
         sqLiteDatabase=database.getReadableDatabase();
@@ -124,17 +127,6 @@ public class ShowData extends AppCompatActivity {
             textView.setText(name[position]);
             textView1.setText(date[position]);
 
-//            edit.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("id",id[position]);
-//                    bundle.putString("name",name[position]);
-//                    Intent intent = new Intent(ShowData.this,MainActivity.class);
-//                    intent.putExtra("userdata",bundle);
-//                    startActivity(intent);
-//                }
-//            });
 
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -151,4 +143,12 @@ public class ShowData extends AppCompatActivity {
             return convertView;
         }
     }
+
+//    public void onBackPressed() {
+//        Intent intent = new Intent(ShowData.this, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+//        finish(); // destroy current activity..
+//        startActivity(intent);
+//    }
 }
