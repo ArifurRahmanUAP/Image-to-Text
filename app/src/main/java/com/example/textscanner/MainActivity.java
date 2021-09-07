@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SimpleDateFormat sdf = new SimpleDateFormat(" HH.mm  dd-MM-yyyy ", Locale.getDefault());
-        String currentDateandTime = sdf.format(new Date());
+
+
 
         Toast.makeText(MainActivity.this,"Developed by Arifur Rahman",Toast.LENGTH_LONG).show();
         take = findViewById(R.id.take_photo);
@@ -114,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -167,5 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(MainActivity.this,"Copied",Toast.LENGTH_LONG).show();
     }
+    SimpleDateFormat sdf = new SimpleDateFormat("h:mm a  MMM d, yy", Locale.getDefault());
+    String currentDateandTime = sdf.format(new Date());
 
 }
