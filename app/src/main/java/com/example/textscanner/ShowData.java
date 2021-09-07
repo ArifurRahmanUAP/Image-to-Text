@@ -1,22 +1,15 @@
 package com.example.textscanner;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -25,16 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
 public class ShowData extends AppCompatActivity {
     ListView listView;
-    ImageView empty;
     String[] name , date;
     int[] id;
     SQLiteDatabase sqLiteDatabase;
     private Database database;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +31,8 @@ public class ShowData extends AppCompatActivity {
         setContentView(R.layout.activity_show_data);
         listView = findViewById(R.id.listviewid);
             database = new Database(this);
-            empty = findViewById(R.id.empty);
             dis();
-
     }
-
 
     private void dis() {
         sqLiteDatabase=database.getReadableDatabase();
@@ -68,7 +54,7 @@ public class ShowData extends AppCompatActivity {
         }
     else if (cursor.getCount()==0)
         {
-            Toast.makeText(ShowData.this,"Empty",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShowData.this,"Empty",Toast.LENGTH_LONG).show();
         }
         ClipboardManager clipboard = (ClipboardManager)
                 getSystemService(Context.CLIPBOARD_SERVICE);
@@ -89,16 +75,14 @@ public class ShowData extends AppCompatActivity {
     {
         ClipboardManager clipBoard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("Copied Data",text);
-
         clipBoard.setPrimaryClip(clip);
 
-
-        Toast.makeText(ShowData.this,"Copied",Toast.LENGTH_LONG).show();
+        Toast.makeText(ShowData.this,"Copied",Toast.LENGTH_SHORT).show();
     }
 
 
-    private class Custom extends BaseAdapter {
 
+    private class Custom extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -120,13 +104,11 @@ public class ShowData extends AppCompatActivity {
             ImageView delete;
             TextView textView, textView1;
             convertView = LayoutInflater.from(ShowData.this).inflate(R.layout.sample_view,parent,false);
-
             delete = convertView.findViewById(R.id.delete);
             textView = convertView.findViewById(R.id.textview_id);
             textView1 = convertView.findViewById(R.id.textview_date);
             textView.setText(name[position]);
             textView1.setText(date[position]);
-
 
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -144,11 +126,4 @@ public class ShowData extends AppCompatActivity {
         }
     }
 
-//    public void onBackPressed() {
-//        Intent intent = new Intent(ShowData.this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
-//        finish(); // destroy current activity..
-//        startActivity(intent);
-//    }
 }

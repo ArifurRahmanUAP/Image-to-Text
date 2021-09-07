@@ -5,7 +5,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -29,7 +28,6 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,9 +36,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
 
-
     private ImageView take,copy,retake,history;
-        private TextView textView, date;
+        private TextView textView;
 
         private static final int REQUEST_CAMERA_CODE =100;
         Bitmap bitmap;
@@ -50,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         Toast.makeText(MainActivity.this,"Developed by Arifur Rahman",Toast.LENGTH_LONG).show();
         take = findViewById(R.id.take_photo);
@@ -88,19 +84,17 @@ public class MainActivity extends AppCompatActivity {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("name",textView.getText().toString());
                 contentValues.put("date",currentDateandTime);
-
-                Toast.makeText(MainActivity.this, currentDateandTime, Toast.LENGTH_SHORT).show();
                 SQLiteDatabase sqLiteDatabase = db.getWritableDatabase();
 
                 Long recid = sqLiteDatabase.insert("info",null,contentValues);
 
                 if(recid!=null){
 
-                    Toast.makeText(MainActivity.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Data Coppied and saved", Toast.LENGTH_SHORT).show();
                 }
                 else {
 
-                    Toast.makeText(MainActivity.this, "Something is Wrong pls try again ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Something is Wrong pls try again ", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -112,10 +106,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
     }
+
 
     public void onBackPressed() {
         new AlertDialog.Builder(this)
@@ -126,16 +118,9 @@ public class MainActivity extends AppCompatActivity {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         MainActivity.super.onBackPressed();
-                        finsh();
-
-                    }
-
-                    private void finsh() {
-
                     }
                 }).create().show();
     }
-
 
 
     @Override
@@ -159,19 +144,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    private  void getTextFromImage(Bitmap bitmap){
+    private  void getTextFromImage(Bitmap bitmap) {
         TextRecognizer recognizer = new TextRecognizer.Builder(this).build();
-        if(!recognizer.isOperational())
-        {
-            Toast.makeText(MainActivity.this,"Error",Toast.LENGTH_LONG).show();
-        }
-        else{
+        if (!recognizer.isOperational()) {
+            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_LONG).show();
+        } else {
             Frame frame = new Frame.Builder().setBitmap(bitmap).build();
             SparseArray<TextBlock> textBlockSparseArray = recognizer.detect(frame);
             StringBuilder stringBuilder = new StringBuilder();
-            for(int i = 0; i<textBlockSparseArray.size(); i++)
-            {
+            for (int i = 0; i < textBlockSparseArray.size(); i++) {
                 TextBlock textBlock = textBlockSparseArray.valueAt(i);
                 stringBuilder.append(textBlock.getValue());
                 stringBuilder.append("\n");
@@ -183,15 +164,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void copytoClip(String text)
+
     {
         ClipboardManager clipBoard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("Copied Data",text);
-
         clipBoard.setPrimaryClip(clip);
-
-
-        Toast.makeText(MainActivity.this,"Copied",Toast.LENGTH_LONG).show();
     }
     SimpleDateFormat sdf = new SimpleDateFormat("h:mm a  MMM d, yy", Locale.getDefault());
     String currentDateandTime = sdf.format(new Date());
