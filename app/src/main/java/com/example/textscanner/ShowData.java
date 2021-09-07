@@ -40,8 +40,8 @@ public class ShowData extends AppCompatActivity {
         sqLiteDatabase=database.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select *from info",null);
         if(cursor.getCount()>0){
-            id= new int[cursor.getCount()];
-            name= new String[cursor.getCount()];
+            id = new int[cursor.getCount()];
+            name = new String[cursor.getCount()];
             date = new String[cursor.getCount()];
 
             int i=0;

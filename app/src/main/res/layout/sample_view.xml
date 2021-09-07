@@ -25,17 +25,20 @@
             android:layout_height="match_parent"
             android:hint="No text on Image"
             android:padding="2dp"
+            android:layout_marginLeft="8dp"
             android:textColor="#020202"
             tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <ImageView
+            android:contentDescription="Delete"
             android:id="@+id/delete"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:src="@drawable/delete"
-             android:layout_weight="1"
+             android:layout_weight=".4"
              android:textAlignment="textEnd"
-             android:gravity="end" />
+             android:gravity="end"
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>

@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShowData">
+    tools:context=".ShowData"
+    android:background="#F1BAAD"    >
 
     <ListView
         android:id="@+id/listviewid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="#ff22"
-        android:dividerHeight="2dp"
-        android:listSelector="#CDE3C5"/>
+        android:listSelector="#FBA183"/>
 
     <ImageView
         android:visibility="gone"
