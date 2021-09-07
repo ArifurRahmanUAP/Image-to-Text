@@ -1,30 +1,31 @@
 package com.example.textscanner;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
+
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 
 
 public class ShowData extends AppCompatActivity {
     ListView listView;
-    String[] name;
+    ImageView empty;
+    String[] name , date;
     int[] id;
     SQLiteDatabase sqLiteDatabase;
     private Database database;
@@ -37,48 +38,59 @@ public class ShowData extends AppCompatActivity {
         setContentView(R.layout.activity_show_data);
         listView = findViewById(R.id.listviewid);
             database = new Database(this);
-        //loadData();
-        SQLiteDatabase sqLiteDatabase = database.getWritableDatabase();
-        loadData();
-        ImageView delete = findViewById(R.id.delete);
+            empty = findViewById(R.id.empty);
+            dis();
 
 
-
-//
-//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                new AlertDialog.Builder(ShowData.this).setIcon(android.R.drawable.ic_delete).setTitle("Are you sure to Delete?").setMessage("Do you want to delete this item?").setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int position) {
-//
-//                        database.delete_byID(position);
-//                    }
-//                }).setNegativeButton("No",null).show();
-//
-//                return true;
-//            }
-//        });
 
     }
 
-    public void loadData() {
-        ArrayList<String> listData = new ArrayList<>();
-        Cursor cursor = database.displayAllData();
-        if (cursor.getCount() == 0) {
-            Toast.makeText(getApplicationContext(), "No Data in Database", Toast.LENGTH_LONG).show();
-        } else {
-            while (cursor.moveToNext()) {
-                listData.add(cursor.getString(0) + " \t " + cursor.getString(1));
+    private void dis() {
+        sqLiteDatabase=database.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select *from info",null);
+        if(cursor.getCount()>0){
+            id= new int[cursor.getCount()];
+            name= new String[cursor.getCount()];
+            date = new String[cursor.getCount()];
+
+            int i=0;
+            while (cursor.moveToNext()){
+                id[i]=cursor.getInt(0);
+                name[i]=cursor.getString(1);
+                date[i]=cursor.getString(2);
+                i++;
             }
-
+            Custom adapter=new Custom();
+            listView.setAdapter(adapter);
         }
+    else if (cursor.getCount()==0)
+        {
+            Toast.makeText(ShowData.this,"Empty",Toast.LENGTH_SHORT).show();
+        }
+        ClipboardManager clipboard = (ClipboardManager)
+                getSystemService(Context.CLIPBOARD_SERVICE);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.sample_view, R.id.textview_id, listData);
-        listView.setAdapter(adapter);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view.findViewById(R.id.textview_id);
+                final String test = textView.getText().toString();
+                copytoClip(test);
+
+                return true;
+            }
+        });
+    }
+
+    private void copytoClip(String text)
+    {
+        ClipboardManager clipBoard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("Copied Data",text);
+
+        clipBoard.setPrimaryClip(clip);
 
 
+        Toast.makeText(ShowData.this,"Copied",Toast.LENGTH_LONG).show();
     }
 
 
@@ -102,13 +114,15 @@ public class ShowData extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView edit,delete;
-            TextView textView;
+            ImageView delete;
+            TextView textView, textView1;
             convertView = LayoutInflater.from(ShowData.this).inflate(R.layout.sample_view,parent,false);
 
             delete = convertView.findViewById(R.id.delete);
             textView = convertView.findViewById(R.id.textview_id);
+            textView1 = convertView.findViewById(R.id.textview_date);
             textView.setText(name[position]);
+            textView1.setText(date[position]);
 
 //            edit.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -121,26 +135,20 @@ public class ShowData extends AppCompatActivity {
 //                    startActivity(intent);
 //                }
 //            });
+
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     sqLiteDatabase= database.getWritableDatabase();
-                    long recd = sqLiteDatabase.delete("thing","id="+id[position],null);
+                    long recd = sqLiteDatabase.delete("info","id="+id[position],null);
                     if (recd!=1){
                         Toast.makeText(ShowData.this, "Record deleted successfully", Toast.LENGTH_SHORT).show();
-                        loadData();
                     }
+                    dis();
                 }
             });
 
             return convertView;
         }
     }
-
-
 }
-
-
-
-
-

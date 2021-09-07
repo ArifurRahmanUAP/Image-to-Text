@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,13 +29,17 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
 
 
     private ImageView take,copy,retake,history;
-        private TextView textView;
+        private TextView textView, date;
+
         private static final int REQUEST_CAMERA_CODE =100;
         Bitmap bitmap;
         Database db;
@@ -43,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        SimpleDateFormat sdf = new SimpleDateFormat(" HH.mm  dd-MM-yyyy ", Locale.getDefault());
+        String currentDateandTime = sdf.format(new Date());
 
         Toast.makeText(MainActivity.this,"Developed by Arifur Rahman",Toast.LENGTH_LONG).show();
         take = findViewById(R.id.take_photo);
@@ -52,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         retake = findViewById(R.id.retake);
         history = findViewById(R.id.historyid);
         db = new Database(this);
-        SQLiteDatabase sqLiteDatabase = db.getWritableDatabase();
 
     if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED);
         {
@@ -77,20 +82,24 @@ public class MainActivity extends AppCompatActivity {
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String scanned_text = textView.getText().toString();
-                copytoClip(scanned_text);
-                if (scanned_text == null) {
-                    Toast.makeText(MainActivity.this, "Null", Toast.LENGTH_SHORT).show();
-                } else if (scanned_text != null) {
-                    long rowid = db.insertData(scanned_text);
-                    if (rowid >0)
-                    {
-                        Toast.makeText(MainActivity.this, "Contact added", Toast.LENGTH_SHORT).show();
+                String copy_text = textView.getText().toString();
+                copytoClip(copy_text);
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("name",textView.getText().toString());
+                contentValues.put("date",currentDateandTime);
 
-                    }
-                    else {
-                        Toast.makeText(MainActivity.this, "Contact added", Toast.LENGTH_SHORT).show();
-                    }
+                Toast.makeText(MainActivity.this, currentDateandTime, Toast.LENGTH_SHORT).show();
+                SQLiteDatabase sqLiteDatabase = db.getWritableDatabase();
+
+                Long recid = sqLiteDatabase.insert("info",null,contentValues);
+
+                if(recid!=null){
+
+                    Toast.makeText(MainActivity.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                    Toast.makeText(MainActivity.this, "Something is Wrong pls try again ", Toast.LENGTH_SHORT).show();
                 }
             }
         });

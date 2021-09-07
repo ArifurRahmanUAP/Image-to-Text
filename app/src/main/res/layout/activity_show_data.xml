@@ -12,6 +12,6 @@
         android:layout_height="wrap_content"
         android:divider="#ff22"
         android:dividerHeight="2dp"
-        android:listSelector="#ff22"/>
+        android:listSelector="#CDE3C5"/>
 
 </LinearLayout>
