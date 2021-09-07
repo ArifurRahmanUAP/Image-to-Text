@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 public class ShowData extends AppCompatActivity {
     ListView listView;
+    ImageView empty;
     String[] name , date;
     int[] id;
     SQLiteDatabase sqLiteDatabase;
@@ -31,6 +32,7 @@ public class ShowData extends AppCompatActivity {
         setContentView(R.layout.activity_show_data);
         listView = findViewById(R.id.listviewid);
             database = new Database(this);
+            empty = findViewById(R.id.empty);
             dis();
     }
 
@@ -54,10 +56,10 @@ public class ShowData extends AppCompatActivity {
         }
     else if (cursor.getCount()==0)
         {
+            empty.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
             Toast.makeText(ShowData.this,"Empty",Toast.LENGTH_LONG).show();
         }
-        ClipboardManager clipboard = (ClipboardManager)
-                getSystemService(Context.CLIPBOARD_SERVICE);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -79,7 +81,6 @@ public class ShowData extends AppCompatActivity {
 
         Toast.makeText(ShowData.this,"Copied",Toast.LENGTH_SHORT).show();
     }
-
 
 
     private class Custom extends BaseAdapter {

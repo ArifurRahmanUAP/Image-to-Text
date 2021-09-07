@@ -14,4 +14,11 @@
         android:dividerHeight="2dp"
         android:listSelector="#CDE3C5"/>
 
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/empty"/>
+
 </LinearLayout>

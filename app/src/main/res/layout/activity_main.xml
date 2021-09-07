@@ -1,75 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
- >
-<ScrollView
-    android:padding="20dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true">
-    <TextView
-        android:id="@+id/textview"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:verticalScrollbarPosition="defaultPosition"
+        android:overScrollMode="ifContentScrolls">
+
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome to my Demo Apps"
+            tools:ignore="HardcodedText" />
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/liniarLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to my Demo Apps" />
-</ScrollView>
+        android:layout_gravity="center"
+        android:gravity="center|bottom">
 
-<LinearLayout
-    android:layout_alignParentBottom="true"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/liniarLayout"
-    android:layout_centerInParent="true">
+        <ImageView
+            android:id="@+id/take_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:autofillHints="Capture"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/create" />
 
-    <ImageView
-        android:id="@+id/take_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/create"
-        android:clickable="true"
-        android:layout_weight="1"
-        android:focusable="true"
-        android:autofillHints="Capture"/>
+        <ImageView
+            android:id="@+id/retake"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:autofillHints="Retake Photo"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/retake"
+            android:visibility="gone" />
 
-    <ImageView
-        android:visibility="gone"
-        android:id="@+id/retake"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/retake"
-        android:clickable="true"
-        android:layout_weight="1"
-        android:focusable="true"
-        android:autofillHints="Retake Photo"/>
+        <ImageView
+            android:id="@+id/copyid"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:autofillHints="Copy and Save"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/copy"
+            android:visibility="gone" />
 
-    <ImageView
-        android:visibility="gone"
-        android:id="@+id/copyid"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/copy"
-        android:clickable="true"
-        android:layout_weight="1"
-        android:focusable="true"
-        android:autofillHints="Copy and Save"/>
-    <ImageView
-        android:visibility="visible"
-        android:id="@+id/historyid"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/history"
-        android:clickable="true"
-        android:layout_weight="1"
-        android:focusable="true"
-        android:autofillHints="History"/>
+        <ImageView
+            android:id="@+id/historyid"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:autofillHints="History"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/history"
+            android:visibility="visible" />
 
-
-
+    </LinearLayout>
 
 </LinearLayout>
-
-</RelativeLayout>
