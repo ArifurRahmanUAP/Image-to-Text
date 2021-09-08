@@ -1,9 +1,13 @@
 package com.example.textscanner;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -100,6 +104,7 @@ public class ShowData extends AppCompatActivity {
             return 0;
         }
 
+        @SuppressLint("ViewHolder")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ImageView delete;
@@ -114,14 +119,23 @@ public class ShowData extends AppCompatActivity {
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sqLiteDatabase= database.getWritableDatabase();
-                    long recd = sqLiteDatabase.delete("info","id="+id[position],null);
-                    if (recd!=1){
-                        Toast.makeText(ShowData.this, "Record deleted successfully", Toast.LENGTH_SHORT).show();
+
+                    new AlertDialog.Builder(ShowData.this)
+                            .setMessage("Are you sure you want to delete?")
+                            .setNegativeButton(android.R.string.no, null)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    sqLiteDatabase= database.getWritableDatabase();
+                                    long recd = sqLiteDatabase.delete("info","id="+id[position],null);
+                                    if (recd!=1){
+                                        Toast.makeText(ShowData.this, "Record deleted successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                    dis();
+                                }
+                            }).create().show();
                     }
-                    dis();
-                }
-            });
+                });
 
             return convertView;
         }
