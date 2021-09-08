@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentValues;
@@ -39,12 +40,13 @@ public class MainActivity extends AppCompatActivity {
     SimpleDateFormat sdf = new SimpleDateFormat("h:mm a  MMM d, yyyy", Locale.getDefault());
     String currentDateandTime = sdf.format(new Date());
 
-    private ImageView take,copy, retake, history, logo;
+    private ImageView take,copy, retake, history, logo, arif;
         private TextView textView;
         private static final int REQUEST_CAMERA_CODE =100;
         Bitmap bitmap;
         Database db;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         retake = findViewById(R.id.retake);
         history = findViewById(R.id.historyid);
         logo = findViewById(R.id.logo);
+        arif = findViewById(R.drawable.arif);
         db = new Database(this);
 
     if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED);
@@ -111,6 +114,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ShowData.class);
                 startActivity(intent);
+            }
+        });
+
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setIcon(R.drawable.arif);
+                builder.setTitle("Md. Arifur Rahman");
+                builder.setMessage("Student of University of Asia Pacific\nDepartment of Computer Science and Engineering");
+                builder.setCancelable(true);
+                builder.create().show();
             }
         });
     }
