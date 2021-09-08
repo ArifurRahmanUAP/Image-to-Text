@@ -36,9 +36,11 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
 
-    private ImageView take,copy,retake,history;
-        private TextView textView;
+    SimpleDateFormat sdf = new SimpleDateFormat("h:mm a  MMM d, yy", Locale.getDefault());
+    String currentDateandTime = sdf.format(new Date());
 
+    private ImageView take,copy, retake, history, logo;
+        private TextView textView;
         private static final int REQUEST_CAMERA_CODE =100;
         Bitmap bitmap;
         Database db;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         copy = findViewById(R.id.copyid);
         retake = findViewById(R.id.retake);
         history = findViewById(R.id.historyid);
+        logo = findViewById(R.id.logo);
         db = new Database(this);
 
     if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED);
@@ -108,21 +111,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setTitle("Really Exit?")
-                .setMessage("Are you sure you want to exit?")
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        MainActivity.super.onBackPressed();
-                    }
-                }).create().show();
-    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -157,10 +145,12 @@ public class MainActivity extends AppCompatActivity {
                 stringBuilder.append(textBlock.getValue());
                 stringBuilder.append("\n");
             }
+
             textView.setText(stringBuilder.toString());
             copy.setVisibility(View.VISIBLE);
             retake.setVisibility(View.VISIBLE);
             take.setVisibility(View.GONE);
+            logo.setVisibility(View.GONE);
         }
     }
 
@@ -172,7 +162,19 @@ public class MainActivity extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("Copied Data",text);
         clipBoard.setPrimaryClip(clip);
     }
-    SimpleDateFormat sdf = new SimpleDateFormat("h:mm a  MMM d, yy", Locale.getDefault());
-    String currentDateandTime = sdf.format(new Date());
+
+
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        MainActivity.super.onBackPressed();
+                    }
+                }).create().show();
+    }
 
 }

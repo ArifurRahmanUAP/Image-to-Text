@@ -27,7 +27,7 @@
             android:padding="2dp"
             android:layout_marginLeft="8dp"
             android:textColor="#020202"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"/>
     </LinearLayout>
 
     <ImageView
@@ -36,9 +36,9 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:src="@drawable/delete"
-             android:layout_weight=".4"
-             android:textAlignment="textEnd"
-             android:gravity="end"
-        tools:ignore="HardcodedText" />
+            android:layout_weight=".4"
+            android:textAlignment="textEnd"
+            android:gravity="end"
+            tools:ignore="HardcodedText"/>
 
 </LinearLayout>
