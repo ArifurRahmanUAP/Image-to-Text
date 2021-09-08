@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:padding="5dp">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:orientation="vertical">
+        android:layout_margin="4dp">
 
         <TextView
             android:id="@+id/textview_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"/>
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="3dp"
+            android:text="Date"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/textview_id"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_date"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             android:hint="No text on Image"
             android:padding="2dp"
-            android:layout_marginLeft="8dp"
             android:textColor="#020202"
-            tools:ignore="HardcodedText"/>
-    </LinearLayout>
+            tools:ignore="HardcodedText" />
 
-    <ImageView
-            android:contentDescription="Delete"
+        <ImageView
             android:id="@+id/delete"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_height="47dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:contentDescription="Delete"
             android:src="@drawable/delete"
-            android:layout_weight=".4"
-            android:textAlignment="textEnd"
-            android:gravity="end"
-            tools:ignore="HardcodedText"/>
+            tools:ignore="HardcodedText"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"/>
 
-</LinearLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

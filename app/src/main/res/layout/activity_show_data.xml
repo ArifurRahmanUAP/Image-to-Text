@@ -5,13 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ShowData"
-    android:background="#C8C8C8"    >
+    android:background="#C8C8C8"
+    android:orientation="horizontal">
 
     <ListView
         android:id="@+id/listviewid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:listSelector="#959595"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="#959595"
+        android:clickable="true"
+        android:dividerHeight="10dp"
+        android:focusable="true" />
 
     <ImageView
         android:visibility="gone"

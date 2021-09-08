@@ -36,7 +36,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
 
-    SimpleDateFormat sdf = new SimpleDateFormat("h:mm a  MMM d, yy", Locale.getDefault());
+    SimpleDateFormat sdf = new SimpleDateFormat("h:mm a  MMM d, yyyy", Locale.getDefault());
     String currentDateandTime = sdf.format(new Date());
 
     private ImageView take,copy, retake, history, logo;
@@ -49,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         Toast.makeText(MainActivity.this,"Developed by Arifur Rahman",Toast.LENGTH_LONG).show();
         take = findViewById(R.id.take_photo);
