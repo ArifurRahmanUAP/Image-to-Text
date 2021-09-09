@@ -150,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private  void getTextFromImage(Bitmap bitmap) {
         TextRecognizer recognizer = new TextRecognizer.Builder(this).build();
         if (!recognizer.isOperational()) {
@@ -172,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
             logo.setVisibility(View.GONE);
         }
     }
-
 
     private void copytoClip(String text)
 

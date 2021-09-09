@@ -23,8 +23,7 @@ import android.widget.Toast;
 
 
 public class ShowData extends AppCompatActivity {
-   // RecyclerView recyclerView;
-    ListView recyclerView;
+    ListView listView;
     ImageView empty;
     String[] name , date;
     int[] id;
@@ -35,7 +34,7 @@ public class ShowData extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_data);
-        recyclerView = findViewById(R.id.listviewid);
+        listView = findViewById(R.id.listviewid);
             database = new Database(this);
             empty = findViewById(R.id.empty);
             dis();
@@ -57,16 +56,16 @@ public class ShowData extends AppCompatActivity {
                 i++;
             }
             Custom adapter=new Custom();
-            recyclerView.setAdapter(adapter);
+            listView.setAdapter(adapter);
         }
     else if (cursor.getCount()==0)
         {
             empty.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            listView.setVisibility(View.GONE);
             Toast.makeText(ShowData.this,"Empty",Toast.LENGTH_LONG).show();
         }
 
-        recyclerView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView textView = (TextView) view.findViewById(R.id.textview_id);

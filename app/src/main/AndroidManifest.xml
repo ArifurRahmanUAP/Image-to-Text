@@ -13,6 +13,7 @@
         android:theme="@style/Theme.TextScanner">
 
         <activity
+            android:parentActivityName=".MainActivity"
             android:name=".ShowData"
             android:exported="true"
             android:label="History" />

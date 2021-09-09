@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ShowData"
     android:background="#C8C8C8"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="8dp">
 
     <ListView
         android:id="@+id/listviewid"
