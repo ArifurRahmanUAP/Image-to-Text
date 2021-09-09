@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -107,13 +109,15 @@ public class ShowData extends AppCompatActivity {
         @SuppressLint("ViewHolder")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView delete;
-            TextView textView, textView1;
+            ImageView delete, edit;
+            EditText editText;
+            TextView  textView1;
             convertView = LayoutInflater.from(ShowData.this).inflate(R.layout.sample_view,parent,false);
             delete = convertView.findViewById(R.id.delete);
-            textView = convertView.findViewById(R.id.textview_id);
+            edit = convertView.findViewById(R.id.edit);
+            editText = convertView.findViewById(R.id.textview_id);
             textView1 = convertView.findViewById(R.id.textview_date);
-            textView.setText(name[position]);
+            editText.setText(name[position]);
             textView1.setText(date[position]);
 
             delete.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +140,31 @@ public class ShowData extends AppCompatActivity {
                             }).create().show();
                     }
                 });
+
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("name",editText.getText().toString());
+                    SQLiteDatabase sqLiteDatabase = database.getWritableDatabase();
+
+                    Long recid = sqLiteDatabase.insert("info",null,contentValues);
+
+                    if(recid!=null){
+
+                        Toast.makeText(ShowData.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+
+                        Toast.makeText(ShowData.this, "Something is Wrong pls try again ", Toast.LENGTH_LONG).show();
+                    }
+
+                    sqLiteDatabase= database.getWritableDatabase();
+                    long recd = sqLiteDatabase.delete("info","id="+id[position],null);
+                    dis();
+                }
+            });
 
             return convertView;
         }
