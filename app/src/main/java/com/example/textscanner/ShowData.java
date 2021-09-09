@@ -23,6 +23,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 
 public class ShowData extends AppCompatActivity {
     ListView listView;
@@ -31,6 +35,9 @@ public class ShowData extends AppCompatActivity {
     int[] id;
     SQLiteDatabase sqLiteDatabase;
     private Database database;
+
+    SimpleDateFormat sdf = new SimpleDateFormat("h:mm a  MMM d, yyyy", Locale.getDefault());
+    String currentDateandTime = sdf.format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,24 +152,32 @@ public class ShowData extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
+                    new AlertDialog.Builder(ShowData.this)
+                            .setMessage("Are you sure you want to Update?")
+                            .setNegativeButton(android.R.string.no, null)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface arg0, int arg1) {
+
                     ContentValues contentValues = new ContentValues();
                     contentValues.put("name",editText.getText().toString());
+                    contentValues.put("Date",currentDateandTime);
                     SQLiteDatabase sqLiteDatabase = database.getWritableDatabase();
 
                     Long recid = sqLiteDatabase.insert("info",null,contentValues);
 
                     if(recid!=null){
-
                         Toast.makeText(ShowData.this, "Data Updated", Toast.LENGTH_SHORT).show();
                     }
                     else {
-
                         Toast.makeText(ShowData.this, "Something is Wrong pls try again ", Toast.LENGTH_LONG).show();
                     }
 
                     sqLiteDatabase= database.getWritableDatabase();
                     long recd = sqLiteDatabase.delete("info","id="+id[position],null);
                     dis();
+                }
+                            }).create().show();
                 }
             });
 

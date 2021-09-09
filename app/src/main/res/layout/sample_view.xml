@@ -17,13 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="3dp"
             android:text="Date"
             tools:ignore="HardcodedText" />
 
         <EditText
             android:id="@+id/textview_id"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textview_date"
             android:layout_marginStart="20dp"
@@ -31,17 +32,18 @@
             android:hint="No text on Image"
             android:padding="2dp"
             android:textColor="#020202"
+            android:textSize="15sp"
             tools:ignore="HardcodedText" />
 
         <ImageView
             android:id="@+id/edit"
             android:layout_width="45dp"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="39dp"
+            android:layout_marginRight="39dp"
             android:contentDescription="Edit"
             android:src="@drawable/edit"
             tools:ignore="HardcodedText" />
@@ -50,16 +52,16 @@
             android:id="@+id/delete"
             android:layout_width="45dp"
             android:layout_height="47dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="-5dp"
+            android:layout_marginRight="-5dp"
             android:contentDescription="Delete"
             android:src="@drawable/delete"
-            tools:ignore="HardcodedText"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="10dp" />
+            tools:ignore="HardcodedText" />
 
     </RelativeLayout>
 
