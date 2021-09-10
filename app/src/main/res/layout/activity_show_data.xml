@@ -7,7 +7,8 @@
     tools:context=".ShowData"
     android:background="#C8C8C8"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:id="@+id/asd">
 
     <ListView
         android:id="@+id/listviewid"

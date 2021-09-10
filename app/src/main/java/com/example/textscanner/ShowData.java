@@ -9,9 +9,11 @@ import android.content.ClipboardManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.jar.Attributes;
 
 
 public class ShowData extends AppCompatActivity {
@@ -117,14 +120,13 @@ public class ShowData extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ImageView delete, edit;
-            EditText editText;
-            TextView  textView1;
+            TextView  textView1, textView;
             convertView = LayoutInflater.from(ShowData.this).inflate(R.layout.sample_view,parent,false);
             delete = convertView.findViewById(R.id.delete);
             edit = convertView.findViewById(R.id.edit);
-            editText = convertView.findViewById(R.id.textview_id);
+            textView = convertView.findViewById(R.id.textview_id);
             textView1 = convertView.findViewById(R.id.textview_date);
-            editText.setText(name[position]);
+            textView.setText(name[position]);
             textView1.setText(date[position]);
 
             delete.setOnClickListener(new View.OnClickListener() {
@@ -152,32 +154,14 @@ public class ShowData extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    new AlertDialog.Builder(ShowData.this)
-                            .setMessage("Are you sure you want to Update?")
-                            .setNegativeButton(android.R.string.no, null)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                                public void onClick(DialogInterface arg0, int arg1) {
+                    Intent intent = new Intent(ShowData.this,Update.class);
+                    intent.putExtra("id",id[position]);
+                    intent.putExtra("name",name[position]);
+                    intent.putExtra("date",date[position]);
+                    startActivity(intent);
 
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put("name",editText.getText().toString());
-                    contentValues.put("Date",currentDateandTime);
-                    SQLiteDatabase sqLiteDatabase = database.getWritableDatabase();
 
-                    Long recid = sqLiteDatabase.insert("info",null,contentValues);
-
-                    if(recid!=null){
-                        Toast.makeText(ShowData.this, "Data Updated", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(ShowData.this, "Something is Wrong pls try again ", Toast.LENGTH_LONG).show();
-                    }
-
-                    sqLiteDatabase= database.getWritableDatabase();
-                    long recd = sqLiteDatabase.delete("info","id="+id[position],null);
-                    dis();
-                }
-                            }).create().show();
                 }
             });
 

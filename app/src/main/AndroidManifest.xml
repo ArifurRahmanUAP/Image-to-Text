@@ -11,12 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TextScanner">
-
         <activity
-            android:parentActivityName=".MainActivity"
+            android:name=".Update"
+            android:exported="true"
+            android:parentActivityName=".ShowData"/>
+        <activity
             android:name=".ShowData"
             android:exported="true"
-            android:label="History" />
+            android:label="History"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
