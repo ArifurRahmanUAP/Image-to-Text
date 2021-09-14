@@ -55,7 +55,7 @@ public class Update extends AppCompatActivity {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface arg0, int arg1) {
-           ContentValues contentValues = new ContentValues();
+                                ContentValues contentValues = new ContentValues();
                                 contentValues.put("date", textView1.getText().toString());
                                 contentValues.put("name", nameedt.getText().toString());
                                 sqLiteDatabase = database.getWritableDatabase();

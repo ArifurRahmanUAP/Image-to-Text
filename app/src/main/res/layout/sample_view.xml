@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="7dp"
             android:layout_marginBottom="10dp"
             android:text="Date"
             tools:ignore="HardcodedText" />
@@ -42,11 +42,24 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="7dp"
+            android:layout_marginEnd="35dp"
             android:layout_marginRight="35dp"
             android:contentDescription="Edit"
             android:src="@drawable/edit"
-            tools:ignore="HardcodedText"
-            android:layout_marginEnd="35dp" />
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginRight="35dp"
+            android:contentDescription="Edit"
+            android:src="@drawable/share"
+            tools:ignore="HardcodedText" />
 
         <ImageView
             android:id="@+id/delete"

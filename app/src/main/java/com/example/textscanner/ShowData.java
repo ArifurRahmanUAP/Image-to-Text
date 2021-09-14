@@ -119,10 +119,11 @@ public class ShowData extends AppCompatActivity {
         @SuppressLint("ViewHolder")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView delete, edit;
+            ImageView delete, edit , share;
             TextView  textView1, textView;
             convertView = LayoutInflater.from(ShowData.this).inflate(R.layout.sample_view,parent,false);
             delete = convertView.findViewById(R.id.delete);
+            share = convertView.findViewById(R.id.share);
             edit = convertView.findViewById(R.id.edit);
             textView = convertView.findViewById(R.id.textview_id);
             textView1 = convertView.findViewById(R.id.textview_date);
@@ -161,6 +162,20 @@ public class ShowData extends AppCompatActivity {
                     intent.putExtra("date",date[position]);
                     startActivity(intent);
 
+
+                }
+            });
+
+            share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBody = name[position];
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                    startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
                 }
             });

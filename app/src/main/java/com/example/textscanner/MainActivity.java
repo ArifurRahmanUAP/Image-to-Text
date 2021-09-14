@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     SimpleDateFormat sdf = new SimpleDateFormat("h:mm a  MMM d, yyyy", Locale.getDefault());
     String currentDateandTime = sdf.format(new Date());
 
-    private ImageView take,copy, retake, history, logo, arif;
+    private ImageView take,copy, retake, history, logo, arif, share;
         private TextView textView;
         private static final int REQUEST_CAMERA_CODE =100;
         Bitmap bitmap;
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(MainActivity.this,"Developed by Arifur Rahman",Toast.LENGTH_LONG).show();
         take = findViewById(R.id.take_photo);
+        share = findViewById(R.id.shareid);
         textView = findViewById(R.id.textview);
         copy = findViewById(R.id.copyid);
         retake = findViewById(R.id.retake);
@@ -117,6 +118,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String copy_text = textView.getText().toString();
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = copy_text;
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
+
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
             retake.setVisibility(View.VISIBLE);
             take.setVisibility(View.GONE);
             logo.setVisibility(View.GONE);
+            share.setVisibility(View.VISIBLE);
         }
     }
 
