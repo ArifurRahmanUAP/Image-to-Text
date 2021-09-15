@@ -17,6 +17,7 @@
         android:listSelector="#959595"
         android:clickable="true"
         android:dividerHeight="10dp"
+        android:textIsSelectable="true"
         android:focusable="true" />
 
     <ImageView
