@@ -14,7 +14,7 @@
         android:id="@+id/listviewid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:listSelector="#959595"
+        android:listSelector="#8C8B8B"
         android:clickable="true"
         android:dividerHeight="10dp"
         android:textIsSelectable="true"

@@ -68,15 +68,14 @@ public class Update extends AppCompatActivity {
 
                                     Toast.makeText(Update.this, "Something wrong try again", Toast.LENGTH_SHORT).show();
                                 }
+
                                 Intent i = new Intent(Update.this, ShowData.class);
                                 startActivity(i);
-
                             }
-                        }).create().show();
 
+                        }).create().show();
             }
 
         });
     }
-
 }
