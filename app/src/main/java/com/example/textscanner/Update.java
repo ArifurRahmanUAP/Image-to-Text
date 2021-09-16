@@ -6,15 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,7 +56,6 @@ public class Update extends AppCompatActivity {
                                 contentValues.put("name", nameedt.getText().toString());
                                 sqLiteDatabase = database.getWritableDatabase();
                                 long recid = sqLiteDatabase.update("info",contentValues,"name=?", new String[]{name});
-                                // long recid = sqLiteDatabase.update("info", contentValues, "id="+id, null);
                                 if (recid != -1) {
                                     Toast.makeText(Update.this, "Data update successfully", Toast.LENGTH_SHORT).show();
 
