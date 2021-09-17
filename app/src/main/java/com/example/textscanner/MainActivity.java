@@ -1,5 +1,6 @@
 package com.example.textscanner;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,11 +20,22 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
@@ -45,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         private static final int REQUEST_CAMERA_CODE =100;
         Bitmap bitmap;
         Database db;
+        private AdView mAdView;
+     InterstitialAd mInterstitialAd;
+
 
     @SuppressLint("ResourceType")
     @Override
@@ -67,7 +82,34 @@ public class MainActivity extends AppCompatActivity {
         arif = findViewById(R.drawable.arif);
         db = new Database(this);
 
-    if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED);
+
+        MobileAds.initialize(MainActivity.this);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-7148413509095909/1143566527");
+        mAdView = findViewById(R.id.adView);
+        mAdView.loadAd(adRequest);
+
+        InterstitialAd.load(this,"ca-app-pub-7148413509095909/5821178132", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        mInterstitialAd = null;
+                    }
+                });
+
+
+
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED);
         {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.CAMERA},REQUEST_CAMERA_CODE);
@@ -76,13 +118,22 @@ public class MainActivity extends AppCompatActivity {
         take.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobileAds.initialize(MainActivity.this);
+
                 CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(MainActivity.this);
             }
+
+
         });
 
         retake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(MainActivity.this);
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                }
                 CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(MainActivity.this);
             }
         });
@@ -113,6 +164,13 @@ public class MainActivity extends AppCompatActivity {
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(MainActivity.this);
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                }
+
                 Intent intent = new Intent(MainActivity.this, ShowData.class);
                 startActivity(intent);
             }
@@ -131,17 +189,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setIcon(R.drawable.arif);
-                builder.setTitle("Md. Arifur Rahman");
-                builder.setMessage("Student of University of Asia Pacific\nDepartment of Computer Science and Engineering");
-                builder.setCancelable(true);
-                builder.create().show();
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(MainActivity.this);
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                }
             }
         });
+
     }
 
     @Override
@@ -165,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private  void getTextFromImage(Bitmap bitmap) {
+
         TextRecognizer recognizer = new TextRecognizer.Builder(this).build();
         if (!recognizer.isOperational()) {
             Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_LONG).show();
@@ -195,7 +255,6 @@ public class MainActivity extends AppCompatActivity {
         clipBoard.setPrimaryClip(clip);
     }
 
-
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setTitle("Really Exit?")
@@ -208,5 +267,4 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).create().show();
     }
-
 }

@@ -1,5 +1,6 @@
 package com.example.textscanner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +15,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 public class Update extends AppCompatActivity {
     Database database;
     SQLiteDatabase sqLiteDatabase;
@@ -22,6 +30,7 @@ public class Update extends AppCompatActivity {
     EditText nameedt;
     TextView textView1;
     private static int id = 0;
+    private AdView mAdView;
 
 
 
@@ -39,6 +48,23 @@ public class Update extends AppCompatActivity {
 
         nameedt.setText(name);
         textView1.setText(date);
+
+
+        AdView adView = new AdView(this);
+
+        adView.setAdSize(AdSize.BANNER);
+
+        adView.setAdUnitId("ca-app-pub-7148413509095909/1143566527");
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = findViewById(R.id.adView1);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         edit.setOnClickListener(new View.OnClickListener() {

@@ -6,25 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ShowData"
     android:background="#C8C8C8"
-    android:orientation="horizontal"
-    android:padding="8dp"
-    android:id="@+id/asd">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <ListView
         android:id="@+id/listviewid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:listSelector="#8C8B8B"
         android:clickable="true"
         android:dividerHeight="10dp"
         android:textIsSelectable="true"
         android:focusable="true" />
 
+
     <ImageView
         android:visibility="gone"
         android:id="@+id/empty"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:src="@drawable/empty"/>
 
 </LinearLayout>

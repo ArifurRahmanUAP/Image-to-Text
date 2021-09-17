@@ -72,6 +72,8 @@
             android:contentDescription="Delete"
             android:src="@drawable/delete"
             tools:ignore="HardcodedText" />
+
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

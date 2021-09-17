@@ -6,29 +6,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.jar.Attributes;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 
 public class ShowData extends AppCompatActivity {
@@ -39,20 +39,21 @@ public class ShowData extends AppCompatActivity {
     SQLiteDatabase sqLiteDatabase;
     private Database database;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("h:mm a  MMM d, yyyy", Locale.getDefault());
-    String currentDateandTime = sdf.format(new Date());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_data);
         listView = findViewById(R.id.listviewid);
-            database = new Database(this);
-            empty = findViewById(R.id.empty);
+        database = new Database(this);
+        empty = findViewById(R.id.empty);
+
             dis();
     }
 
     private void dis() {
+
         sqLiteDatabase=database.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select *from info",null);
         if(cursor.getCount()>0){
@@ -69,6 +70,7 @@ public class ShowData extends AppCompatActivity {
             }
             Custom adapter=new Custom();
             listView.setAdapter(adapter);
+
         }
     else if (cursor.getCount()==0)
         {
@@ -83,10 +85,10 @@ public class ShowData extends AppCompatActivity {
                 TextView textView = (TextView) view.findViewById(R.id.textview_id);
                 final String test = textView.getText().toString();
                 copytoClip(test);
-
                 return true;
             }
         });
+
     }
 
     private void copytoClip(String text)
@@ -130,6 +132,7 @@ public class ShowData extends AppCompatActivity {
             textView.setText(name[position]);
             textView1.setText(date[position]);
 
+
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -161,8 +164,6 @@ public class ShowData extends AppCompatActivity {
                     intent.putExtra("name",name[position]);
                     intent.putExtra("date",date[position]);
                     startActivity(intent);
-
-
                 }
             });
 
@@ -183,5 +184,6 @@ public class ShowData extends AppCompatActivity {
             return convertView;
         }
     }
+
 
 }
