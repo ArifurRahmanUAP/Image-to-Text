@@ -20,7 +20,6 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-7148413509095909~2427614649"/>
 
-
         <activity
             android:name=".Update"
             android:exported="true"

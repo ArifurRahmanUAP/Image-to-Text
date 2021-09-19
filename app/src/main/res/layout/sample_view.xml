@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="7dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="7dp"
+    app:cardBackgroundColor="@color/black_shade_1">
 
 
     <RelativeLayout
@@ -13,6 +14,7 @@
         android:layout_margin="4dp">
 
         <TextView
+            android:textColor="@color/yellow"
             android:id="@+id/textview_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,6 +25,7 @@
             tools:ignore="HardcodedText" />
 
         <TextView
+            android:textColor="@color/white"
             android:id="@+id/textview_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,12 +34,12 @@
             android:layout_marginLeft="20dp"
             android:hint="No text on Image"
             android:padding="2dp"
-            android:textColor="#000000"
             android:textSize="15sp"
             tools:ignore="HardcodedText"
             android:textIsSelectable="true"/>
 
         <ImageView
+            android:outlineAmbientShadowColor="@color/white"
             android:id="@+id/edit"
             android:layout_width="35dp"
             android:layout_height="35dp"
