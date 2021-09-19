@@ -193,7 +193,10 @@ public class MainActivity extends AppCompatActivity {
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"Hello",Toast.LENGTH_LONG).show();
+
+                new AlertDialog.Builder(MainActivity.this)
+                        .setMessage("Welcome to this app, here you can detect text from images, also can store text's in your devices for further usages.") .create().show();
+
             }
         });
     }
