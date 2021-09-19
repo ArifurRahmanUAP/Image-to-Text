@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
-        adView.setAdUnitId("ca-app-pub-7148413509095909/1143566527");
+        adView.setAdUnitId("cca-app-pub-7148413509095909/1143566527");
         mAdView = findViewById(R.id.adView);
         mAdView.loadAd(adRequest);
 
@@ -193,14 +193,9 @@ public class MainActivity extends AppCompatActivity {
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mInterstitialAd != null) {
-                    mInterstitialAd.show(MainActivity.this);
-                } else {
-                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
-                }
+                Toast.makeText(MainActivity.this,"Hello",Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     @Override

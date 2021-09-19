@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "796709892562",
+    "project_id": "text-scanner-f73ee",
+    "storage_bucket": "text-scanner-f73ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796709892562:android:ae07947013984eae94980b",
+        "android_client_info": {
+          "package_name": "com.example.textscanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796709892562-8j6rmge2m1j2oabc2k1ng49dfn4smjue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvPo4F--0vhPw2TSCdfeOzDPnVaTRdp6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "796709892562-8j6rmge2m1j2oabc2k1ng49dfn4smjue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-7148413509095909~2427614649"
+    }
+  ],
+  "configuration_version": "1"
+}
