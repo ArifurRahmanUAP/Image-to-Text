@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity"
     android:orientation="vertical"
     android:background="@color/black_shade_1"
-    android:padding="15dp">
+    android:padding="10dp">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -33,6 +34,15 @@
         android:overScrollMode="ifContentScrolls"
         android:verticalScrollbarPosition="defaultPosition">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Source Text"
+            android:layout_gravity="center"
+            android:textColorHint="@color/white"
+            app:hintTextColor="@color/white">
 
         <TextView
             android:id="@+id/textview"
@@ -42,6 +52,7 @@
             android:textIsSelectable="true"
             android:textColor="@color/yellow"/>
 
+        </com.google.android.material.textfield.TextInputLayout>
     </ScrollView>
 
 
